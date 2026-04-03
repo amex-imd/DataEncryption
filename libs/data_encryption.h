@@ -4,6 +4,7 @@
 #include <string>
 #include <cstddef>
 #include <stdexcept>
+#include <cstdarg>
 namespace IMD
 {
     // -------- CAESAR CIPHER--------
@@ -29,6 +30,32 @@ namespace IMD
 
         return res;
     }
+
+    // --------EXTRA FUNCTIONS--------
+
+    template <typename T>
+    T gcd(T a, T b)
+    {
+        while (b != 0)
+        {
+            T t = b;
+            b = a % b;
+            a = t;
+        }
+        return a < 0 ? -a : a;
+    }
+
+    template <typename T, typename... Args>
+    T gcd(T first, Args... args)
+    {
+        T rest = gcd(args...);
+        return gcd(first, rest);
+    }
+
+    bool is_prime(unsigned long long num);
+
+    unsigned long long Euler_function(unsigned long long num);
+
 }
 
 #endif
