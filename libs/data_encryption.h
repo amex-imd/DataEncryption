@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <stdexcept>
 #include <cstdarg>
+#include <tuple>
 namespace IMD
 {
     // -------- CAESAR CIPHER--------
@@ -55,6 +56,20 @@ namespace IMD
     bool is_prime(unsigned long long num);
 
     unsigned long long Euler_function(unsigned long long num);
+
+    unsigned long long mod_pow(unsigned long long base, unsigned long long pow, unsigned long long mod);
+
+    unsigned long long mod_inverse(unsigned long long a, unsigned long long mod);
+
+    std::tuple<long long, long long> linear_gcd_representation(unsigned long long a, unsigned long long b);
+
+    // --------RSA--------
+
+    std::tuple<unsigned long long, unsigned long long, unsigned long long> key_pair_gen(unsigned long long p, unsigned long long q);
+
+    unsigned long long RSA_encrypt(unsigned long long message, unsigned long long n, unsigned long long e);
+
+    unsigned long long RSA_decrypt(unsigned long long cipher, unsigned long long n, unsigned long long d);
 
 }
 
