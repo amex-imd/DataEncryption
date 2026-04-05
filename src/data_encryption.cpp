@@ -108,37 +108,15 @@ unsigned long long IMD::mod_pow(unsigned long long base, unsigned long long pow,
 
     return res;
 }
-
-std::tuple<long long, long long> IMD::linear_gcd_representation(unsigned long long a, unsigned long long b)
-{
-    long long u0 = 1, v0 = 0;
-    long long u1 = 0, v1 = 1;
-
-    while (b != 0)
-    {
-        long long q = a / b;
-        long long r = a % b;
-
-        long long u = u0 - u1 * q, v = v0 - v1 * q;
-        a = b;
-        b = r;
-        u0 = u1;
-        v0 = v1;
-        u1 = u;
-        v1 = v;
-    }
-    return {u0, v0};
-}
 unsigned long long IMD::mod_inverse(unsigned long long a, unsigned long long mod)
 {
-    auto [x, y] = IMD::linear_gcd_representation(a, mod);
-    auto gcd = IMD::gcd(a, mod);
+    auto [gcd, coeffs] = IMD::linear_gcd_representation(a, mod);
+    auto x = coeffs[0];
 
     if (gcd != 1)
-    {
-        throw std::invalid_argument("Обратного элемента не существует");
-    }
-    return (x % mod + mod) % mod;
+        throw std::invalid_argument("The converse element doesn't exist");
+
+    return (x % mod + mod) % mod; // According to the formula
 }
 std::tuple<unsigned long long, unsigned long long, unsigned long long> IMD::key_pair_gen(unsigned long long p, unsigned long long q)
 {
